@@ -93,7 +93,7 @@ export const Login = () => {
           <button type="submit" className="btn btn-primary w-100 mt-3" onClick={()=>navigate('/register')}>
          Register
           </button>
-          <button className='btn bg-light shadow mt-3 ' style={{border:"none" , marginLeft:"80px"}} onClick={handlegoogle} ><img src={Googleicon} width={20} height={20}/> sign in with google</button>
+          {/* <button className='btn bg-light shadow mt-3 ' style={{border:"none" , marginLeft:"80px"}} onClick={handlegoogle} ><img src={Googleicon} width={20} height={20}/> sign in with google</button> */}
         </form>
       </div>
     </div>

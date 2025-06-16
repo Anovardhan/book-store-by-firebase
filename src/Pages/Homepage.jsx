@@ -136,9 +136,9 @@ const filteredProducts = products.filter(product => {
       onChange={(e) => setSelectedCategory(e.target.value)}
     >
       <option value="">All</option>
-      <option value="electronics">Electronics</option>
-      <option value="books">Books</option>
-      <option value="clothing">Clothing</option>
+      <option value="thriller">Thriller</option>
+      <option value="romantic">Romantic</option>
+      <option value="crime">crime</option>
       
     </select>
   </div>
