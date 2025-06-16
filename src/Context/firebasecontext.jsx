@@ -39,17 +39,23 @@ export const FirebaseProvider = ({ children }) => {
   const [role , setrole] = useState(null)
  const [loading, setLoading] = useState(true);
   useEffect(()=>{
-   const unsubscribe = onAuthStateChanged(auth,  async (user) =>{
-      if(user) {
-        setuser(user);
-        const userDocref = doc(db,"users" , user.uid);
+   const unsubscribe = onAuthStateChanged(auth,  async (currentUser) =>{
+      if(currentUser) {
+        setuser(currentUser);
+        const userDocref = doc(db,"users" , currentUser.uid);
         const userDoc = await getDoc(userDocref)
         if(userDoc.exists()){
             const userdata = userDoc.data()
             setrole(userdata.role)
 
         }else{
-            setrole(null)//admin
+                   const defaultRole = currentUser.email === "admin@gmail.com" ? "admin" : "user";
+        await setDoc(userDocref, {
+          uid: currentUser.uid,
+          email: currentUser.email,
+          role: defaultRole
+        });
+        setrole(defaultRole); 
         }
       }
         else {
@@ -65,31 +71,24 @@ export const FirebaseProvider = ({ children }) => {
   const isloggin = user ? true : false
 
   const signinWithGoogle = async () => {
-   try{
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user
-    //console.log(user)
-    const userDocref = doc(db, "users", user.uid);
-    const userDoc = await getDoc(userDocref);
-    if(!userDoc.exists()){
-        const adminemail = "admin@gmail.com"
-        
-        const role = user.email === adminemail ? "admin" : "user";
-        await setDoc(userDocref,{
-            email:user.email ,
-            role:role,
-           uid: user.uid,
-            
+  const result = await signInWithPopup(auth, provider);
+  const signedInUser = result.user;
 
-        });
-    }
-    return user;
+  const userDocRef = doc(db, "users", signedInUser.uid);
+  const userDocSnap = await getDoc(userDocRef);
 
-   }
-   catch(err){
-    alert(err.message)
-   }
+  if (!userDocSnap.exists()) {
+    const role = signedInUser.email === "admin@gmail.com" ? "admin" : "user";
+
+    await setDoc(userDocRef, {
+      uid: signedInUser.uid,
+      email: signedInUser.email,
+      role: role
+    });
+
+    setrole(role);  
   }
+};
 const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
 const addtocart = async(product)=>{

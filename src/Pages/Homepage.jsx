@@ -97,7 +97,11 @@ const filteredProducts = products.filter(product => {
              <button style={{ fontSize: '24px', background: 'none', border: 'none', cursor: 'pointer' }}>
       <FaUser />
     </button>
-            <h4 className='text-white mt-2'>{userdetails ?.email}</h4>
+          {userdetails?.email ? (
+  <h5 className='text-dark mt-2 ms-2'>{userdetails.email}</h5>
+) : (
+  <h6 className='text-muted mt-2 ms-2'>Guest</h6>
+)}
 
         </div>
         <div className='items d-flex align-items-center' style={{cursor:"pointer"}}>
