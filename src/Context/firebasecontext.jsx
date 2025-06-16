@@ -76,6 +76,7 @@ export const FirebaseProvider = ({ children }) => {
 
   const userDocRef = doc(db, "users", signedInUser.uid);
   const userDocSnap = await getDoc(userDocRef);
+  let role;
 
   if (!userDocSnap.exists()) {
     const role = signedInUser.email === "admin@gmail.com" ? "admin" : "user";
@@ -86,8 +87,15 @@ export const FirebaseProvider = ({ children }) => {
       role: role
     });
 
-    setrole(role);  
+   
+    
   }
+  else {
+    const userData = userDocSnap.data();
+    role = userData.role;
+  }
+   setrole(role);  
+   return role;
 };
 const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
