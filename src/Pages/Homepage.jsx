@@ -178,7 +178,7 @@ const filteredProducts = products.filter(product => {
   </div>
 </div>
 
-<div className='row'>
+<div className='row ' style = {{marginLeft:"100px"}}>
     {
         filteredProducts.map((product)=>(
             <div className="col-md-4 p-4" key={product.id}  style={{cursor:"pointer"}}>
