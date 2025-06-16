@@ -35,11 +35,15 @@ export const Login = () => {
 
   }
 
-  useEffect(()=>{
-    if(isloggin){
-        navigate('/')
+ useEffect(() => {
+  if (isloggin && role) {
+    if (role === 'admin') {
+      navigate('/additem');
+    } else {
+      navigate('/');
     }
-  },[navigate,isloggin])
+  }
+}, [isloggin, role, navigate]);
 
   const handlegoogle = async()=>{
     try {

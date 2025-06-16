@@ -18,7 +18,7 @@ import { FaStar, FaRegStar } from "react-icons/fa";
 export const Homepage = () => {
   const navigate = useNavigate();
     const { logout,user,role,addtocart,placeOrder} = UseFirebase();
-    console.log(role)
+
     //console.log(user)
     const [userdetails , setuserdetails] = useState([])
     const [products , setproducts] = useState([])
@@ -111,7 +111,10 @@ const filteredProducts = products.filter(product => {
                 role === 'admin' ? <div className='d-flex'><Link to='/additem' style={{textDecoration:"none" , color:"inherit"}}><button className='ms-3 btn bg-success text-white'>Add items</button></Link> <Link  to="/admin-dashboard"><button className='ms-3 btn bg-success text-white'>view all orders</button></Link>  </div> : null
             }
             </div>
-         <button onClick={handlelogout} className='btn btn-danger'>logout</button>
+            {
+              user ? <button onClick={handlelogout} className='btn btn-danger'>logout</button> :<button>login</button>
+            }
+         
          
     </div>
     

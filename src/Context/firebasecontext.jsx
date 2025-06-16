@@ -37,6 +37,7 @@ export const FirebaseProvider = ({ children }) => {
   }
   const [user , setuser] = useState(null)
   const [role , setrole] = useState(null)
+ const [loading, setLoading] = useState(true);
   useEffect(()=>{
    const unsubscribe = onAuthStateChanged(auth,  async (user) =>{
       if(user) {
@@ -48,13 +49,14 @@ export const FirebaseProvider = ({ children }) => {
             setrole(userdata.role)
 
         }else{
-            setrole("admin")//null
+            setrole(null)//admin
         }
       }
         else {
             setuser(null)
             setrole(null)
         }
+         setLoading(false);
 
     })
     return ()=> unsubscribe()
@@ -81,7 +83,7 @@ export const FirebaseProvider = ({ children }) => {
 
         });
     }
-    return user
+    return user;
 
    }
    catch(err){
