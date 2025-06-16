@@ -112,7 +112,7 @@ const filteredProducts = products.filter(product => {
             }
             </div>
             {
-              user ? <button onClick={handlelogout} className='btn btn-danger'>logout</button> :<button>login</button>
+              user ? <button onClick={handlelogout} className='btn btn-danger'>logout</button> :<button onClick={()=>navigate('/login')} className='btn btn-danger'>login</button>
             }
          
          
